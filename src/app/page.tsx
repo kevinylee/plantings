@@ -13,8 +13,6 @@ export default function Home() {
           type="number"
           min="1"
           step="0.01"
-          value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
         />
       </section>      
       <button className="btn" type="submit">Plant</button>
