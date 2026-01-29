@@ -24,8 +24,9 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center flex-column justify-center bg-zinc-50 font-sans dark:bg-black">
       <h1 className="text 3xl font-bold">Soil 🌱</h1>
-      <form>
-        <label>Amount (USD)</label>
+      <form className="flex flex-col">
+        <label>How much do you want to plant?</label>
+
         <input
           required
           value={liveValue}
