@@ -3,7 +3,6 @@
 import { useState } from 'react';
 
 
-
 export default function Home() {
   // the live typing state
   const [liveValue, setLiveValue] = useState("");
@@ -38,7 +37,7 @@ export default function Home() {
           min="1"
           step="0.01"
         />
-        <button onClick={handleClick} className="rounded bg-black text-white">Plant</button>
+        <button onClick={handleClick} className="rounded bg-black text-white dark:bg-white dark:text-black">Plant</button>
       </form>
       <p>Amount:{finalInputValue}</p>
     </div>
