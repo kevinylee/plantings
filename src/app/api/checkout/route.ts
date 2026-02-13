@@ -42,7 +42,7 @@ export async function POST(req: Request) {
         return Response.json({ url: session.url }); // return a session object
     } catch (err: any) { // catch any errors if the payment fails
         return Response.json(
-            { error: err?.message || "Servor error" },
+            { error: err?.message || "Server error" },
             { status: 500 }
         );
     }
