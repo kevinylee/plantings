@@ -10,7 +10,7 @@ Planting is a donation platform built with Next.js and Stripe
 ## Tech Stack
 - Next.js (TypeScript)
 - Stripe
-- Verce (Deployment)
+- Verce (Deployment) *pending
 
 ## Running Locally
 '''bash
