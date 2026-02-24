@@ -25,7 +25,7 @@ export async function POST(req: Request) {
         const session = await stripe.checkout.sessions.create({
             mode: "payment", // one-time payment
             payment_method_types: ["card"], // accept card payment
-            line_items: [
+            line_items: [ // what is being bought
                 {
                     quantity: 1,
                     price_data: {
@@ -34,7 +34,10 @@ export async function POST(req: Request) {
                         product_data: { name: "Planting Donation" },
                     },
                 },
-            ], // what is being bought
+            ],
+            metadata: {
+                source: "planting_mvp0",
+            },
             success_url: `${baseUrl}/success`, // where to go after payment success
             cancel_url: `${baseUrl}/cancel`, // where to go if payment is canceled
         });
