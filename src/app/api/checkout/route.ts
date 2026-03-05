@@ -1,5 +1,12 @@
 import Stripe from "stripe";
 
+// fail loudly if no stripe secret key
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+
+if (!stripeSecretKey) {
+    throw new Error("Missing STRIPE_SECRET_KEY environment variable");
+}
+
 // accepts the Stripe key
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
