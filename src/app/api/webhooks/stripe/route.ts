@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import { prisma } from "@/lib/prisma";
 
 // accepts the Stripe key
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -37,9 +38,31 @@ export async function POST(req: Request) {
             customer_email: session.customer_details?.email,
             payment_intent: session.payment_intent,
         });
-    }
 
-    // NExt step: add saving to DB (supabase/postgres)
+        await prisma.donation.upsert({
+            where: { stripeCheckoutSessionId: session.id },
+            update: {
+                // if Stripe retries, keep it consistent
+                stripeEventId: event.id,
+                stripePaymentIntentId: session.payment_intent?.toString() ?? null,
+                amountTotal: session.amount_total ?? 0,
+                currency: session.currency ?? "usd",
+                donorEmail: session.customer_details?.email ?? null,
+                status: "succeeded",
+            },
+            create: {
+                stripeEventId: event.id,
+                stripeCheckoutSessionId: session.id,
+                stripePaymentIntentId: session.payment_intent?.toString() ?? null,
+                amountTotal: session.amount_total ?? 0,
+                currency: session.currency ?? "usd",
+                donorEmail: session.customer_details?.email ?? null,
+                status: "succeeded",
+            },
+        });
+
+        console.log("Donation is saved to DB: ", session.id);
+    }
 
     return new Response("okayyy", { status: 200 });
 }
