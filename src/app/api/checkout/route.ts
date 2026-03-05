@@ -25,7 +25,7 @@ export async function POST(req: Request) {
         const amountInCents = Math.round(num * 100);
 
         
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!; // will be used for the success and/or cancel page
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000"; // will be used for the success and/or cancel page
         // a Stripe checkout session
         const session = await stripe.checkout.sessions.create({
             mode: "payment", // one-time payment
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
             metadata: {
                 source: "planting_mvp0",
             },
-            success_url: `${baseUrl}/success`, // where to go after payment success
+            success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`, // where to go after payment success
             cancel_url: `${baseUrl}/cancel`, // where to go if payment is canceled
         });
 
