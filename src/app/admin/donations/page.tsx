@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 
 // ensures fresh data in dev/prod
 export const dynamic = "force-dynamic";
+import type { Donation } from "@prisma/client";
 
 export default async function DonationsPage() {
     const donations = await prisma.donation.findMany({
@@ -35,7 +36,7 @@ export default async function DonationsPage() {
                             </tr>                            
                         </thead>
                         <tbody>
-                            {donations.map((d) => (
+                            {donations.map((d: Donation) => (
                                 <tr key={d.id} className="border-t">
                                 <td className="p-3 text-sm">
                                     {new Date(d.createdAt).toLocaleString()}
