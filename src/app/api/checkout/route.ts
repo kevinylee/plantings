@@ -1,9 +1,7 @@
 import Stripe from "stripe";
 
 // accepts the Stripe key
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: "2024-06-20",
-});
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 // creates an endpoint, POST /api/checkout
 export async function POST(req: Request) {

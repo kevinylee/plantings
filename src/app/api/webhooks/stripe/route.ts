@@ -2,9 +2,7 @@ import Stripe from "stripe";
 import { prisma } from "@/lib/prisma";
 
 // accepts the Stripe key
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: "2024-06-20",
-});
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(req: Request) {
     // retrieve stripe signature
