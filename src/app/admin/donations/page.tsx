@@ -1,16 +1,14 @@
 import { prisma } from "@/lib/prisma";
-import type { Prisma } from "@prisma/client";
 
-// ensures fresh data in dev/prod
 export const dynamic = "force-dynamic";
 
-type DonationRow = Prisma.DonationGetPayload<{}>;
-
 export default async function DonationsPage() {
-  const donations: DonationRow[] = await prisma.donation.findMany({
+  const donations = await prisma.donation.findMany({
     orderBy: { createdAt: "desc" },
     take: 5,
   });
+
+  type DonationRow = (typeof donations)[number];
 
   return (
     <main className="mx-auto max-w-4xl p-6">
@@ -38,7 +36,7 @@ export default async function DonationsPage() {
               </tr>
             </thead>
             <tbody>
-              {donations.map((d) => (
+              {donations.map((d: DonationRow) => (
                 <tr key={d.id} className="border-t">
                   <td className="p-3 text-sm">
                     {new Date(d.createdAt).toLocaleString()}
