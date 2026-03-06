@@ -25,7 +25,7 @@ export async function POST(req: Request) {
         const amountInCents = Math.round(num * 100);
 
         
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000"; // will be used for the success and/or cancel page
+        const baseUrl = new URL(req.url).origin; // will be used for the success and/or cancel page
         // a Stripe checkout session
         const session = await stripe.checkout.sessions.create({
             mode: "payment", // one-time payment
