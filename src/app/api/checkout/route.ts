@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 
-// fail loudly if no stripe secret key
+// fail loudly if no stripesecretkey
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
 if (!stripeSecretKey) {
